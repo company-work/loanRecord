@@ -1,0 +1,111 @@
+
+.grid {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+
+  .row {
+/*    display: block;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
+    flex: 1;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;*/
+
+    //纵向布局
+    &.row-ver {
+      -webkit-box-orient: vertical;
+      -webkit-flex-direction: column;
+    }
+
+    //横向布局
+    &.row-hor {
+      -webkit-flex-direction: row;
+      -webkit-box-orient: horizontal;
+    }
+
+    //定义内部元素垂直布局
+    &.v-start {
+      -webkit-box-align: start;
+      -webkit-justify-content: flex-start;
+    }
+    &.v-center {
+      -webkit-box-align: center;
+      -webkit-justify-content: center;
+    }
+    &.v-end {
+      -webkit-box-align: end;
+      -webkit-justify-content: flex-end;
+    }
+    //定义内部元素水平布局
+    &.h-start {
+      -webkit-align-items: flex-start;
+      -webkit-box-pack: start;
+    }
+    &.h-center {
+      -webkit-align-items: center;
+      -webkit-box-pack: center;
+    }
+    &.h-end {
+      -webkit-align-items: flex-end;
+      -webkit-box-pack: end;
+    }
+  }
+  .col {
+    display: block;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    flex: 1;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
+    //定义内部元素垂直布局
+    &.v-start {
+      -webkit-box-align: start;
+      -webkit-justify-content: flex-start;
+    }
+    &.v-center {
+      -webkit-box-align: center;
+      -webkit-justify-content: center;
+    }
+    &.v-end {
+      -webkit-box-align: end;
+      -webkit-justify-content: flex-end;
+    }
+    //定义内部元素水平布局
+    &.h-start {
+      -webkit-align-items: flex-start;
+      -webkit-box-pack: start;
+    }
+    &.h-center {
+      -webkit-align-items: center;
+      -webkit-box-pack: center;
+    }
+    &.h-end {
+      -webkit-align-items: flex-end;
+      -webkit-box-pack: end;
+    }
+  }
+
+  //纵向布局
+  &.grid-ver {
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+  }
+
+  //横向布局
+  &.grid-hor {
+    -webkit-flex-direction: row;
+    -webkit-box-orient: horizontal;
+  }
+}
+

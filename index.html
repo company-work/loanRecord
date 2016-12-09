@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>贷款记录1</title>
+  <meta name="description" content="贷款记录">
+  <meta name="x5-fullscreen" content="true">
+  <meta name="full-screen" content="yes">
+  <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/flexible.js"></script>
+  <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/flexible_css.js"></script>
+  <script>
+    var host = "http://192.168.2.228:8080/sales/beauty/";
+    window.GOKU = {
+      openId: "ocfpiw2RHpQAitmPpm-4yA-125ys",
+      loanType: "P1057",
+      clientNo: "100120161121029021",
+      interFace: {
+        initRecord: host + "queryLoanRecord.do",
+        recordList: host + "queryOnWayLoan.do"
+      }
+    }
+  </script>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>__REACT_DEVTOOLS_GLOBAL_HOOK__ = parent.__REACT_DEVTOOLS_GLOBAL_HOOK__</script>
+</body>
+</html>

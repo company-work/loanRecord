@@ -1,0 +1,22 @@
+.input-box {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  height: 85px;
+  width: 100%;
+  color: #777;
+  font-size: 25px;
+  .input:disabled {
+    background: #fff;
+    color: #717171 !important;
+    opacity: 1;
+  }
+  .input[disabled] {
+    background: #fff;
+    color: #717171 !important;
+    opacity: 1;
+  }
+}

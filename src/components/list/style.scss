@@ -1,0 +1,40 @@
+.page-list {
+  border: 2px solid #dcdcdc;
+  background: #fff;
+  li {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    height: 85px;
+    width: 100%;
+    padding-left: 38px;
+    color: #777;
+    font-size: 25px;
+
+    &:after {
+      position: absolute;
+      left: 38px;
+      bottom: 0;
+      width: calc(100% - 38px);
+      height: 2px;
+      background: #dcdcdc;
+      content: "";
+    }
+    &:last-child:after {
+      display: none;
+    }
+
+
+    .input, .select {
+      height: 100%;
+      flex: 1;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      font-size: 25px;
+    }
+
+  }
+}

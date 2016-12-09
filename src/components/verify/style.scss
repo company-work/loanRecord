@@ -1,0 +1,57 @@
+.input-verify-box {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+
+  -webkit-box-align: center;
+  height: 87px;
+
+  width: 100%;
+  color: #777;
+  font-size: 25px;
+
+  .input-verify-inner {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    height: 85px;
+    padding-left: 38px;
+    color: #777;
+    font-size: 25px;
+
+    border:1px solid #dcdcdc;
+    background: #fff;
+    margin-right: 18px;
+    flex: 1;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    overflow: hidden;
+    .label{
+      display: -webkit-box;
+      -webkit-box-align: center;
+      font-size: 25px;
+    }
+    .input{
+      flex: 1;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      height: 80px !important;
+    }
+  }
+
+  .loan-btn {
+    width: 245px;
+    height: 85px;
+    font-size: 25px;
+  }
+}
