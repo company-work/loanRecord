@@ -43,16 +43,17 @@ class RecordDetails extends React.Component {
   }
 
   componentDidMount() {
-
-    return false;
-    //获取数据
     var self = this;
+
+    let reqNum = self.props.params.loanReqNum;
+    if (!reqNum) return false;
+    //获取数据
+
     Loading.show("验证中...");
-    Axios.get(GOKU.interFace.initRecord, {
+    Axios.get(GOKU.interFace.initRecordDetails, {
         params: {
           openId: GOKU.openId,
-          clientNo: GOKU.clientNo,
-          loanType: GOKU.loanType
+          reqNo: reqNum
         }
       })
       .then(res => {
@@ -60,41 +61,72 @@ class RecordDetails extends React.Component {
         Loading.hide();
         let data = res.data;
         if (data.succ) {
-
           if (data.result != null) {
-            let lMoney = data.result['loanAmt'];
-            let lTime = data.result['loanLimit'];
-            let lRepay = data.result['interest'];
+            let resultData = data.result;
 
+            //格式化详情
+            let obj = {};
+            obj.status = resultData.loanState;
+            obj.statusTxt = resultData.loanStateLabel;
+            obj.money = resultData.loanAmt;
+            obj.date = resultData.loanDate;
+            obj.agency = resultData.coopName;
+            obj.loanTime = resultData.loanLimit;
+            obj.repayType = resultData.repayType;
+            obj.repayMoney = resultData.monthRepayAmt;
+
+
+            //格式化操作按钮
+            let arr = [];
+            let recordMenu = resultData.menuList;
+            recordMenu.forEach(function (item, index) {
+              let obj = {};
+              obj.name = item.menuTitle;
+              obj.desc = item.menuSmallTitle;
+              obj.type = item.type;
+              obj.img = item.menuImg;
+              obj.index = item.orderNum;
+              obj.linkUrl = item.linkUrl;
+
+              arr.push(obj);
+            });
+
+
+            //重新赋值
             self.setState({
-              loanReqNum: data.result['reqNo'],
-              loanInfo: {
-                money: lMoney,
-                time: lTime,
-                repay: lRepay
-              }
-            })
-          } else {
-            self.setState({
-              loanInfo: null
+              loanInfo: obj,
+              operation: arr
             })
           }
         } else {
           Toast.show(data.err_msg);
         }
-        console.log(res);
-        console.log("Ajax success");
       })
       .catch(err => {
         Loading.hide();
         Toast.show("服务端繁忙，请稍候...");
-        console.log("Ajax error");
       });
   }
 
-  JumpHandle(url) {
-    console.log(url);
-    this.context.router.push(url);
+  JumpHandle(type, url) {
+    let self = this;
+    let params = self.props.params;
+    let loanReqNum = params.loanReqNum;
+    console.log(type);
+    switch (type) {
+      case "loanHome":
+
+        window.location.href = "http://192.168.2.246:8000/#/loanhome/" + GOKU.openId + "/" + GOKU.clientNo + "/" + loanReqNum;
+        break;
+      case "contract":
+
+        //本地
+        let reqNum = self.props.params.reqNum;
+        //this.context.router.push("loanContract/" + reqNum);
+        this.context.router.push("loanContract/100320161202006606");
+        break;
+    }
+
   }
 
   render() {
@@ -103,9 +135,13 @@ class RecordDetails extends React.Component {
     let loanHandle = this.state.operation;
     let handleHtm;
     handleHtm = loanHandle.map(function (item, index) {
-      let handleCls = "pull-left handle-item handle-item-" + item.index;
+      let handleCls = "pull-left handle-item handle-item-" + (item.index - 1);
+      let _type = item;
       return (
-        <div onClick={self.JumpHandle.bind(self,item.linkUrl)} key={index} className={handleCls}>
+        <div onClick={self.JumpHandle.bind(self,item.type,item.linkUrl)} key={index} className={handleCls}>
+          <i>
+            <img src={item.img}/>
+          </i>
           <h3>{item.name}</h3>
           <p>{item.desc}</p>
         </div>
@@ -128,7 +164,7 @@ class RecordDetails extends React.Component {
         {/*--借款基本信息--*/}
         <div className="record-details">
           <div className={statusCls}>
-            <h4>审核通过</h4>
+            <h4>{loanInfo.statusTxt}</h4>
             <div className="record-agency">{loanInfo.agency}</div>
             <div className="record-time">{loanInfo.date}</div>
             <div className="record-money">{loanInfo.money}<span>元</span></div>

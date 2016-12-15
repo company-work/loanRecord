@@ -8,36 +8,21 @@
   <meta name="full-screen" content="yes">
   <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/flexible.js"></script>
   <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/flexible_css.js"></script>
+  <!--<script src="./public/bower_components/signature_pad/signature_pad.min.js"></script>-->
   <script>
     var host = "http://192.168.2.161:9530/sales/beauty/";
     //var host = "http://192.168.2.228:18080/sales/beauty/";
     window.GOKU = {
       openId: "ocfpiw2RHpQAitmPpm-4yA-125ys",
-      loanType: "P1057",
+      loanType: "P1024",
       loanHomeUrl:"//mmcai.cn:3000/beauty/index.html",
       loanIndexUrl:"//baidu.com/",
-      clientNo: "100120161121029021",
+      clientNo: "100120161202029190",
       interFace: {
-        recordList: host + "queryLoanRecord.do",
-        initRecord: host + "queryOnWayLoan.do",
-        initLoanTime: host + "initLoanInfo.do",
-        saveLoanInfo: host + "saveLoanInfo.do",
-        initLoanHome: host + "queryLoanMainInfo.do",
-        initAuthUser: host + "queryUserInfo.do",
-        initBankInfo: host + "initBankInfo.do",
-        checkBankInfo: host + "cardBinInfo.do",
-        saveAuthUser: host + 'userAuth.do',
-        initAuthCard: host + "queryCardInfo.do",
-        saveAuthCard: host + "saveBankCard.do",
-        initAddressInfo: host + "initCurrAddType.do",
-        initAuthInfo: host + "queryBaseInfo.do",
-        saveAuthInfo: host + "saveBaseInfo.do",
-        initContact: host + "initLinkerType.do",
-        initAuthContact: host + "queryClientLinker.do",
-        saveAuthContact: host + "saveClientLinker.do",
-        initAuthImg: host + "queryAttachDir.do",
-        saveAuthImg: host + "attachUpload.do",
-        saveLoanForm: host + "submitConfirm.do"
+        initRecord: host + "queryLoanRecord.do",
+        initRecordDetails: host + "queryLoanDetail.do",
+        initContract: host + "queryContractList.do",
+        goSign: host + "signAgreement.do"
       }
     }
   </script>

@@ -1,5 +1,5 @@
 module.exports = {
-  path: 'recordDetails',
+  path: 'recordDetails/:loanReqNum',
   getComponent(nextState, cb) {
     require.ensure([], (require) => {
       cb(null, require('./components/index'))

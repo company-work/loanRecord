@@ -10,34 +10,39 @@ class LoanRecord extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loanNew: true,
       recordList: [
         {
           money: "10000",
           status: "0",
           statusTxt: "新申请",
           date: "2016.11.10",
-          agency: "杭州龙盈整形医院"
+          agency: "杭州龙盈整形医院",
+          reqNum: ""
         },
         {
           money: "20000",
           status: "2",
           statusTxt: "其它状态",
           date: "2016.12.10",
-          agency: "丽人医院"
+          agency: "丽人医院",
+          reqNum: ""
         },
         {
           money: "20000",
           status: "0",
           statusTxt: "其它状态",
           date: "2016.12.10",
-          agency: "丽人医院"
+          agency: "丽人医院",
+          reqNum: ""
         },
         {
           money: "20000",
           status: "2",
           statusTxt: "其它状态",
           date: "2016.12.10",
-          agency: "丽人医院"
+          agency: "丽人医院",
+          reqNum: ""
         }
       ]
     }
@@ -46,7 +51,6 @@ class LoanRecord extends React.Component {
   componentDidMount() {
     //获取数据
     var self = this;
-    return false;
     Loading.show("验证中...");
     Axios.get(GOKU.interFace.initRecord, {
         params: {
@@ -61,39 +65,47 @@ class LoanRecord extends React.Component {
         let data = res.data;
         if (data.succ) {
 
-          if (data.result != null) {
-            let lMoney = data.result['loanAmt'];
-            let lTime = data.result['loanLimit'];
-            let lRepay = data.result['interest'];
+          if (data.result.length > 0) {
+            let resultData = data.result;
+            let recordData = [];
+            resultData.forEach(function (item, index) {
+              var obj = {};
+              obj.money = item.loanAmt;
+              obj.status = item.state;
+              obj.statusTxt = item.stateTxt;
+              obj.date = item.reqDate;
+              obj.agency = item.coopName;
+              obj.reqNum = item.reqNo;
+
+              recordData.push(obj);
+            });
 
             self.setState({
-              loanReqNum: data.result['reqNo'],
-              loanInfo: {
-                money: lMoney,
-                time: lTime,
-                repay: lRepay
-              }
+              recordList: recordData
             })
+
           } else {
             self.setState({
-              loanInfo: null
+              recordList: []
             })
           }
         } else {
           Toast.show(data.err_msg);
         }
-        console.log(res);
-        console.log("Ajax success");
       })
       .catch(err => {
         Loading.hide();
         Toast.show("服务端繁忙，请稍候...");
-        console.log("Ajax error");
       });
   }
 
-  JumpDetails() {
-    this.context.router.push('recordDetails');
+  JumpDetails(reqNum) {
+    //跳转到详情的时候，把申请编号带过去（ID）
+    this.context.router.push('recordDetails/' + reqNum);
+  }
+
+  JumpNewLoan(){
+    window.location.href="http://192.168.2.246:8000/";
   }
 
   render() {
@@ -101,6 +113,7 @@ class LoanRecord extends React.Component {
     let recordData = this.state.recordList;
     let recordHtm = recordData.map(function (item, index) {
       let statusCls;
+
       switch (item.status) {
         case "2":
           statusCls = "record-body record-gray";
@@ -110,11 +123,10 @@ class LoanRecord extends React.Component {
           break;
       }
 
-
       return (
-        <div onClick={self.JumpDetails.bind(self)} key={index} className="record-item">
+        <div onClick={self.JumpDetails.bind(self,item.reqNum)} key={index} className="record-item">
           <div className={statusCls}>
-            <h4>审核通过</h4>
+            <h4>{item.statusTxt}</h4>
             <div className="record-agency">{item.agency}</div>
             <div className="record-time">{item.date}</div>
             <div className="record-money">{item.money}<span>元</span></div>
@@ -127,9 +139,21 @@ class LoanRecord extends React.Component {
       )
     });
 
+    //新申请入口
+    let loanNew = "";
+    if (self.state.loanNew) {
+      loanNew = <div className="c-title">
+        我要借款
+        <a onClick={this.JumpNewLoan.bind(this)} href="javascript:void(0);">去借款</a>
+      </div>;
+    }
+
     return (
       <div className="page-loanRecord">
-        {recordHtm}
+        {loanNew}
+        <div className="page-loan-list">
+          {recordHtm}
+        </div>
       </div>
     );
   }

@@ -58,26 +58,14 @@ class ContractDetails extends Component {
 
   }
 
-  handle(){
-    this.context.router.push('/contractSign');
-  }
-
-
   render() {
     let self = this;
-    let contractHandle;
-    if (self.state.loanStatus == 1) {
-      contractHandle = <div onClick={self.handle.bind(self)} className="contract-handle"><Btn>区签约</Btn></div>
-    }
-
     return (
       <div className="page-contractDetails">
         {/*合同内容*/}
         <div className="contract-body">
           <iframe frameBorder="0" width="100%" height="100%" src={self.state.contractUrl}></iframe>
         </div>
-        {/*合同操作*/}
-        {contractHandle}
       </div>
     )
   }

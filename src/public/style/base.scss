@@ -144,37 +144,44 @@ html {
 
 /*--借款记录第一页--*/
 .page-loanRecord {
-  padding: 52px 30px;
-  .record-item {
-    margin-bottom: 52px;
-    border: 1px solid #b9b9bb;
-    border-radius: 10px;
-    background: #fff;
-    font-size: 22px;
-    box-sizing: border-box;
-    padding-left: 30px;
-    &:last-child {
-      margin: 0;
-    }
-    .record-bot {
-      cursor: pointer;
-      height: 89px;
-      .pull-left, .pull-right {
-        color: #000;
-        font-size: 28px;
-        height: 100%;
-        display: -webkit-box;
-        -webkit-box-align: center;
-      }
-      .pull-right {
-        i {
-          font-size: 28px;
-        }
-        margin-right: 30px;
-        color: #ba57a5;
 
+  .page-loan-list{
+    padding: 52px 30px;
+    .record-item {
+      margin-bottom: 52px;
+      border: 1px solid #b9b9bb;
+      border-radius: 10px;
+      background: #fff;
+      font-size: 22px;
+      box-sizing: border-box;
+      padding-left: 30px;
+      &:last-child {
+        margin: 0;
+      }
+      .record-bot {
+        cursor: pointer;
+        height: 89px;
+        .pull-left, .pull-right {
+          color: #000;
+          font-size: 28px;
+          height: 100%;
+          display: -webkit-box;
+          -webkit-box-align: center;
+        }
+        .pull-right {
+          i {
+            font-size: 28px;
+          }
+          margin-right: 30px;
+          color: #ba57a5;
+
+        }
       }
     }
+  }
+
+  .c-title{
+    background-image: url("../imgs/icon-loan.png");
   }
 }
 
@@ -220,14 +227,15 @@ html {
       height: 145px;
       box-sizing: border-box;
       padding-left: 130px;
-      &.handle-item-0 {
+
+      /*&.handle-item-0 {
         background: url("../imgs/icon-1.png") 50px center no-repeat;
         background-size: 55px 55px;
       }
       &.handle-item-1 {
         background: url("../imgs/icon-2.png") 50px center no-repeat;
         background-size: 55px 55px;
-      }
+      }*/
       h3 {
         color: #000;
         font-size: 30px;
@@ -237,6 +245,19 @@ html {
       p {
         color: #888;
         font-size: 24px;
+      }
+      i {
+        position: absolute;
+        left: 50px;
+        top: 50%;
+        transform: translate(0, -50%);
+        width: 55px;
+        height: 55px;
+        img {
+          display: block;
+          width: 100%;
+          max-width: 100%;
+        }
       }
     }
     .handle-item:nth-child(2n+1) {
@@ -253,29 +274,50 @@ html {
   }
 }
 
-/*--借款协议列表页面--*/
-.page-loanContract {
-  .c-title {
-    position: relative;
-    width: 100%;
-    height: 100px;
-    box-sizing: border-box;
-    padding-left: 130px;
-    background: #fff url("../imgs/icon-1.png") 50px center no-repeat;
-    background-size: 55px 55px;
-    font-size: 30px;
-    color: #000;
-    padding-top: 35px;
-    &:after {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 1px;
-      background: #bfbfbf;
-      content: "";
+.c-title {
+  position: relative;
+  width: 100%;
+  height: 145px;
+  box-sizing: border-box;
+  padding-left: 130px;
+  background: #fff url("../imgs/icon-1.png") 50px center no-repeat;
+  background-size: 55px 55px;
+  font-size: 30px;
+  color: #000;
+  padding-top: 58px;
+  a {
+    position: absolute;
+    right: 50px;
+    width: 156px;
+    height: 51px;
+    border: 2px solid #ae5da1;
+    color: #ae5da1;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 51px;
+    font-size: 24px;
+    &:hover, &:active, &:visited {
+      text-decoration: none;
+    }
+    &.disable{
+      color: #999;
+      border-color: #999;
     }
   }
+  &:after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: #bfbfbf;
+    content: "";
+  }
+}
+
+/*--借款协议列表页面--*/
+.page-loanContract {
+
   .c-body {
     background: #fff;
     padding-left: 45px;
@@ -305,6 +347,9 @@ html {
         color: #ae5da1;
       }
     }
+    &:last-child:after {
+      display: none;
+    }
     &:after {
       position: absolute;
       left: 0;
@@ -314,6 +359,72 @@ html {
       background: #bfbfbf;
       content: "";
     }
+  }
+  .c-dialog {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    .c-dialog-inner {
+      position: absolute;
+      left: 50%;
+      top: 185px;
+      width: 500px;
+      height: 470px;
+      transform: translate(-50%, 0);
+      background: #fff;
+      border-radius: 10px;
+      .c-dialog-title {
+        height: 150px;
+        line-height: 150px;
+        text-align: center;
+        color: #000;
+        font-size: 30px;
+      }
+      .c-dialog-body {
+        text-indent: 2em;
+        padding: 0 50px;
+        font-size: 24px;
+        color: #888;
+        line-height: 30px;
+        text-align: justify;
+      }
+
+    }
+    .c-dialog-btn {
+      border: 2px solid #ae5da1;
+      color: #ae5da1;
+      border-radius: 10px;
+      margin: 80px 50px 0;
+      height: 60px;
+      line-height: 60px;
+      font-size: 28px;
+      box-sizing: border-box;
+      width: 400px;
+      text-align: center;
+    }
+    .c-dialog-close {
+      position: absolute;
+      left: 50%;
+      top: 140%;
+      width: 50px;
+      height: 50px;
+      background: url("../imgs/icon-close.png") center no-repeat;
+      background-size: cover;
+      transform: translate(-50%, 0);
+      &:after {
+        position: absolute;
+        left: 50%;
+        bottom: 100%;
+        height: 220px;
+        width: 1px;
+        background: #fff;
+        content: "";
+      }
+    }
+
   }
 }
 
@@ -331,17 +442,9 @@ html {
     height: 100%;
     background: #fff;
     box-sizing: border-box;
-    padding-bottom: 115px;
     iframe {
       overflow: hidden;
     }
-  }
-  .contract-handle {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 115px;
   }
 }
 
@@ -353,15 +456,20 @@ html {
   -webkit-box-orient: vertical;
   -webkit-flex-direction: column;
   .s-body {
+    position: relative;
     flex: 1;
     background: #fff;
+    /*--操作按钮部分--*/
     .s-hand-box {
+      position: absolute;
+      left: 0;
+      top: 35px;
       width: 100%;
       height: 55px;
       line-height: 55px;
-      margin: 35px auto 0;
       box-sizing: border-box;
       padding: 0 35px;
+      z-index: 8000;
       & > div {
         cursor: pointer;
       }
@@ -381,12 +489,31 @@ html {
         background-size: 37px 55px;
         padding-right: 45px;
         box-sizing: border-box;
-        i{
+        i {
           float: right;
           font-size: 40px;
           margin-left: 5px;
           display: none;
         }
+      }
+    }
+
+    /*--canvas绘图--*/
+    .s-canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        z-index: 7000;
       }
     }
   }
