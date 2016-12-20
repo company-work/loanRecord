@@ -20,24 +20,9 @@ class loanContract extends Component {
     super(props);
     this.state = {
       dialogFlag: false,
-      signBtn:false,
-      signTxt:"Fuck签约",
-      contractInfo: [
-        {
-          id: "1",
-          name: "借款协议",
-          linkUrl: "",
-          status: "0",
-          statusTxt: "未签订"
-        },
-        {
-          id: "2",
-          name: "网络小额贷款合同",
-          linkUrl: "",
-          status: "0",
-          statusTxt: "未签订"
-        }
-      ]
+      signBtn: false,
+      signTxt: "一键签约",
+      contractInfo: []
     }
   }
 
@@ -61,7 +46,7 @@ class loanContract extends Component {
         Loading.hide();
         let data = res.data;
         if (data.succ) {
-          let result = data.result;
+          let result = data.result.objectResult;
           if (result.length > 0) {
             let arr = [];
             result.forEach(function (item) {
@@ -69,14 +54,14 @@ class loanContract extends Component {
               obj.id = item.contractNo;
               obj.name = item.contractName;
               obj.status = item.state;
-              //obj.linkUrl = item.contractUrl;
-              obj.linkUrl = "http://www.baidu.com/";
+              obj.linkUrl = item.contractUrl;
               obj.statusTxt = item.stateTxt;
               arr.push(obj);
             });
 
             self.setState({
-              contractInfo: arr
+              contractInfo: arr,
+              signBtn: (data.result.state == 0 ? true : false)
             })
           }
 
@@ -99,7 +84,7 @@ class loanContract extends Component {
   //一键签约
   goSign() {
     let self = this;
-    if(self.state.signBtn){
+    if (self.state.signBtn) {
       return false;
     }
 
@@ -119,18 +104,16 @@ class loanContract extends Component {
         Loading.hide();
         let data = res.data;
         if (data.succ) {
-          Toast.show("签约成功");
           self.setState({
             dialogFlag: false,
-            signBtn:true,
-            signTxt:"已签约"
-          })
+            signBtn: true,
+            signTxt: "已签约"
+          });
+          window.location.reload();
+          Toast.show("签约成功");
         } else {
           Toast.show(data.err_msg);
         }
-
-        console.log(res);
-        console.log("Ajax success");
       })
       .catch(err => {
         Loading.hide();
@@ -145,6 +128,9 @@ class loanContract extends Component {
   }
 
   showDialog() {
+    if (this.state.signBtn) {
+      return false;
+    }
     this.setState({
       dialogFlag: true
     })
@@ -170,8 +156,19 @@ class loanContract extends Component {
     });
 
     //判断签约按钮状态
-    let signClsName=self.state.signBtn?"disable":"";
+    let signClsName = self.state.signBtn ? "disable" : "";
 
+    //去合同名字
+    let contractData = self.state.contractInfo;
+    let contractName = "";
+
+    contractData.forEach((item, index)=> {
+      if ((contractData.length-1) == index) {
+        contractName += "《" + item.name + "》，";
+      }else{
+        contractName += "《" + item.name + "》、";
+      }
+    });
 
     let dialogHtm;
     if (self.state.dialogFlag) {
@@ -179,7 +176,7 @@ class loanContract extends Component {
         <div className="c-dialog-inner">
           <div className="c-dialog-cnt">
             <div className="c-dialog-title">温馨提示</div>
-            <div className="c-dialog-body">请仔细阅读《借款协议合同》、《网络小额贷款合同》，点击一键签约表示你同签署以上所有合同并遵守合同中规定的所有条款。</div>
+            <div className="c-dialog-body">请仔细阅读{contractName}点击一键签约表示你同意签署以上所有合同并遵守合同中规定的所有条款。</div>
           </div>
           <div onClick={this.goSign.bind(this)} className="c-dialog-btn">一键签约</div>
           <div onClick={this.hideDialog.bind(this)} className="c-dialog-close"></div>
@@ -190,7 +187,8 @@ class loanContract extends Component {
     return (
       <div className="page-loanContract">
         <h3 className="c-title">我要签约
-          <a onClick={this.showDialog.bind(this)} className={signClsName} href="javascript:void(0);">{self.state.signTxt}</a>
+          <a onClick={this.showDialog.bind(this)} className={signClsName}
+             href="javascript:void(0);">{self.state.signTxt}</a>
         </h3>
         <div className="c-body">
           {contractHtm}

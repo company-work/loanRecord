@@ -10,41 +10,8 @@ class LoanRecord extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loanNew: true,
-      recordList: [
-        {
-          money: "10000",
-          status: "0",
-          statusTxt: "新申请",
-          date: "2016.11.10",
-          agency: "杭州龙盈整形医院",
-          reqNum: ""
-        },
-        {
-          money: "20000",
-          status: "2",
-          statusTxt: "其它状态",
-          date: "2016.12.10",
-          agency: "丽人医院",
-          reqNum: ""
-        },
-        {
-          money: "20000",
-          status: "0",
-          statusTxt: "其它状态",
-          date: "2016.12.10",
-          agency: "丽人医院",
-          reqNum: ""
-        },
-        {
-          money: "20000",
-          status: "2",
-          statusTxt: "其它状态",
-          date: "2016.12.10",
-          agency: "丽人医院",
-          reqNum: ""
-        }
-      ]
+      loanNew: false,
+      recordList: []
     }
   }
 
@@ -64,9 +31,13 @@ class LoanRecord extends React.Component {
         Loading.hide();
         let data = res.data;
         if (data.succ) {
+          let flag = true;
+          if (data.result.state >= 0 && data.result.state < 4) {
+            flag = false;
+          }
 
-          if (data.result.length > 0) {
-            let resultData = data.result;
+          if (data.result["objectResult"].length > 0) {
+            let resultData = data.result["objectResult"];
             let recordData = [];
             resultData.forEach(function (item, index) {
               var obj = {};
@@ -80,12 +51,18 @@ class LoanRecord extends React.Component {
               recordData.push(obj);
             });
 
+
+
             self.setState({
+              loanNew: true,
               recordList: recordData
             })
 
-          } else {
+          }
+          else {
+
             self.setState({
+              loanNew: flag,
               recordList: []
             })
           }
@@ -104,8 +81,8 @@ class LoanRecord extends React.Component {
     this.context.router.push('recordDetails/' + reqNum);
   }
 
-  JumpNewLoan(){
-    window.location.href="http://192.168.2.246:8000/";
+  JumpNewLoan() {
+    window.location.href = GOKU.loanIndexUrl + "?openId=" + GOKU.openId + "&clientNo=" + GOKU.clientNo;
   }
 
   render() {
@@ -115,7 +92,8 @@ class LoanRecord extends React.Component {
       let statusCls;
 
       switch (item.status) {
-        case "2":
+        case -1:
+        case 10:
           statusCls = "record-body record-gray";
           break;
         default:

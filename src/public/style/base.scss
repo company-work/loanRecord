@@ -136,6 +136,8 @@ html {
 }
 
 .record-gray {
+  background: url("../imgs/img-intro-bg-gray.png") right top no-repeat;
+  background-size: contain;
   .record-money {
     color: #888;
   }
@@ -145,7 +147,7 @@ html {
 /*--借款记录第一页--*/
 .page-loanRecord {
 
-  .page-loan-list{
+  .page-loan-list {
     padding: 52px 30px;
     .record-item {
       margin-bottom: 52px;
@@ -180,7 +182,7 @@ html {
     }
   }
 
-  .c-title{
+  .c-title {
     background-image: url("../imgs/icon-loan.png");
   }
 }
@@ -214,6 +216,10 @@ html {
       .r-body {
         font-size: 28px;
         color: #888888;
+        i {
+          font-size: 14px;
+          font-style: normal;
+        }
       }
     }
 
@@ -260,11 +266,11 @@ html {
         }
       }
     }
-    .handle-item:nth-child(2n+1) {
+    .handle-item:nth-child(2n) {
       &:after {
         position: absolute;
         top: 27px;
-        right: 0;
+        left: 0;
         width: 1px;
         height: 90px;
         content: "";
@@ -288,6 +294,8 @@ html {
   a {
     position: absolute;
     right: 50px;
+    top: 50%;
+    transform: translate(0, -50%);
     width: 156px;
     height: 51px;
     border: 2px solid #ae5da1;
@@ -299,7 +307,7 @@ html {
     &:hover, &:active, &:visited {
       text-decoration: none;
     }
-    &.disable{
+    &.disable {
       color: #999;
       border-color: #999;
     }

@@ -12,33 +12,17 @@ class RecordDetails extends React.Component {
     super(props);
     this.state = {
       loanInfo: {
-        status: "2",
-        statusTxt: "新申请",
-        money: "40000",
-        date: "2016-12-5",
-        agency: "龙盈整形一元",
-        loanTime: "6个月",
-        repayType: "等额本金",
-        repayMoney: "2500"
+        status: "",
+        statusTxt: "",
+        money: "",
+        date: "",
+        agency: "",
+        loanTime: "",
+        repayType: "",
+        repayMoney: "",
+        interest: ""//利率
       },
-      operation: [
-        {
-          name: "基本资料",
-          desc: "基本资料申请",
-          status: "0",
-          statusTxt: "已完善",
-          index: 1,
-          linkUrl: "loanContract"
-        },
-        {
-          name: "我要签约",
-          desc: "输入真实姓名",
-          status: "0",
-          statusTxt: "已写",
-          index: 0,
-          linkUrl: "loanContract"
-        }
-      ]
+      operation: []
     }
   }
 
@@ -66,14 +50,16 @@ class RecordDetails extends React.Component {
 
             //格式化详情
             let obj = {};
-            obj.status = resultData.loanState;
-            obj.statusTxt = resultData.loanStateLabel;
+            obj.status = resultData.state;
+            obj.statusTxt = resultData.stateTxt;
             obj.money = resultData.loanAmt;
             obj.date = resultData.loanDate;
             obj.agency = resultData.coopName;
+            obj.interest = resultData.loanInterest;
+
             obj.loanTime = resultData.loanLimit;
             obj.repayType = resultData.repayType;
-            obj.repayMoney = resultData.monthRepayAmt;
+            obj.repayMoney = resultData.repayAmt;
 
 
             //格式化操作按钮
@@ -112,18 +98,17 @@ class RecordDetails extends React.Component {
     let self = this;
     let params = self.props.params;
     let loanReqNum = params.loanReqNum;
-    console.log(type);
     switch (type) {
       case "loanHome":
-
-        window.location.href = "http://192.168.2.246:8000/#/loanhome/" + GOKU.openId + "/" + GOKU.clientNo + "/" + loanReqNum;
+        let goUrl = GOKU.loanHomeUrl + "/#/loanhome/" + GOKU.openId + "/" + GOKU.clientNo + "/" + loanReqNum;
+        window.location.href = goUrl;
         break;
       case "contract":
 
         //本地
-        let reqNum = self.props.params.reqNum;
-        //this.context.router.push("loanContract/" + reqNum);
-        this.context.router.push("loanContract/100320161202006606");
+        let reqNum = self.props.params.loanReqNum;
+        this.context.router.push("loanContract/" + reqNum);
+        //this.context.router.push("loanContract/100320161202006606");
         break;
     }
 
@@ -149,12 +134,28 @@ class RecordDetails extends React.Component {
     });
 
     let statusCls;
+    let repayHtm;
     switch (loanInfo.status) {
-      case "2":
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        statusCls = "record-body";
+        repayHtm = <div className="repay-money clearfix">
+          <div className="r-title pull-left">利率</div>
+          <div className="r-body pull-right">{loanInfo.interest}</div>
+        </div>;
+        break;
+      case -1:
+      case 10:
         statusCls = "record-body record-gray";
         break;
       default:
         statusCls = "record-body";
+        repayHtm = <div className="repay-money clearfix">
+          <div className="r-title pull-left">月还款金额</div>
+          <div className="r-body pull-right">{loanInfo.repayMoney}</div>
+        </div>;
         break;
     }
 
@@ -174,10 +175,7 @@ class RecordDetails extends React.Component {
               <div className="r-title pull-left">借款期限</div>
               <div className="r-body pull-right">{loanInfo.loanTime}</div>
             </div>
-            <div className="repay-money clearfix">
-              <div className="r-title pull-left">月还款金额</div>
-              <div className="r-body pull-right">{loanInfo.repayMoney}</div>
-            </div>
+            {repayHtm}
             <div className="repay-type clearfix">
               <div className="r-title pull-left">还款方式</div>
               <div className="r-body pull-right">{loanInfo.repayType}</div>
