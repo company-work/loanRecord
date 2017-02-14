@@ -19,6 +19,7 @@ class RecordDetails extends React.Component {
         agency: "",
         loanTime: "",
         repayType: "",
+        repayMoneyTxt: "",
         repayMoney: "",
         interest: ""//利率
       },
@@ -60,6 +61,7 @@ class RecordDetails extends React.Component {
             obj.loanTime = resultData.loanLimit;
             obj.repayType = resultData.repayType;
             obj.repayMoney = resultData.repayAmt;
+            obj.repayMoneyTxt = resultData.repayAmtTxt;
 
 
             //格式化操作按钮
@@ -110,6 +112,12 @@ class RecordDetails extends React.Component {
         this.context.router.push("loanContract/" + reqNum);
         //this.context.router.push("loanContract/100320161202006606");
         break;
+      case "repayPlan":
+        //还款记录
+        //本地
+        let reqNums = self.props.params.loanReqNum;
+        this.context.router.push("repayRecord/" + reqNums);
+        break;
     }
 
   }
@@ -134,31 +142,28 @@ class RecordDetails extends React.Component {
     });
 
     let statusCls;
-    let repayHtm;
+
     switch (loanInfo.status) {
       case 0:
       case 1:
       case 2:
       case 3:
         statusCls = "record-body";
-        repayHtm = <div className="repay-money clearfix">
-          <div className="r-title pull-left">利率</div>
-          <div className="r-body pull-right">{loanInfo.interest}</div>
-        </div>;
         break;
       case -1:
       case 10:
         statusCls = "record-body record-gray";
         break;
+        break;
       default:
         statusCls = "record-body";
-        repayHtm = <div className="repay-money clearfix">
-          <div className="r-title pull-left">月还款金额</div>
-          <div className="r-body pull-right">{loanInfo.repayMoney}</div>
-        </div>;
         break;
     }
 
+    let repayHtm = <div className="repay-money clearfix">
+      <div className="r-title pull-left">{loanInfo.repayMoneyTxt}</div>
+      <div className="r-body pull-right">{loanInfo.repayMoney}</div>
+    </div>;
 
     return (
       <div className="page-recordDetails">

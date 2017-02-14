@@ -54,6 +54,7 @@ class loanContract extends Component {
               obj.id = item.contractNo;
               obj.name = item.contractName;
               obj.status = item.state;
+              obj.agreementNo = item.agreementNo;
               obj.linkUrl = item.contractUrl;
               obj.statusTxt = item.stateTxt;
               arr.push(obj);
@@ -123,8 +124,17 @@ class loanContract extends Component {
   }
 
 
-  Handle(url) {
-    window.location.href = url;
+  Handle(num,linkUrl) {
+    if (this.state.signBtn) {
+      if (!num) {
+        Toast.show("借款协议编号为空!");
+        return false;
+      }
+      this.context.router.push('contractDetails/' + num);
+    } else {
+      window.location.href = linkUrl;
+    }
+
   }
 
   showDialog() {
@@ -148,7 +158,7 @@ class loanContract extends Component {
     let contract = self.state.contractInfo;
     let contractHtm = contract.map(function (item, index) {
       return (
-        <div key={index} onClick={self.Handle.bind(self,item.linkUrl)} className="c-item clearfix">
+        <div key={index} onClick={self.Handle.bind(self,item.agreementNo,item.linkUrl)} className="c-item clearfix">
           <div className="pull-left">{item.name}</div>
           <div className="pull-right">{item.statusTxt}<i className="iconfont icon-right"></i></div>
         </div>
@@ -163,9 +173,9 @@ class loanContract extends Component {
     let contractName = "";
 
     contractData.forEach((item, index)=> {
-      if ((contractData.length-1) == index) {
+      if ((contractData.length - 1) == index) {
         contractName += "《" + item.name + "》，";
-      }else{
+      } else {
         contractName += "《" + item.name + "》、";
       }
     });

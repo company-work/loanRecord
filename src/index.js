@@ -96,7 +96,9 @@ const rootRoute = {
         //借款合同
         require('./routes/LoanContract'),
         //合同详情
-        require('./routes/ContractDetails')
+        require('./routes/ContractDetails'),
+        //还款记录
+        require('./routes/RepayRecord')
       ]
     }
   ]

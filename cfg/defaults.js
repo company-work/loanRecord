@@ -17,7 +17,7 @@ var isProduction = function () {
 };
 
 const devPublicPath = "/";
-const proPublicPath = "http://ami-static.b0.upaiyun.com/loan-record/2.0.1/";
+const proPublicPath = "http://ami-static.b0.upaiyun.com/loan-record/3.0.0/";
 //const proPublicPath = "./";
 
 function getDefaultModules() {

@@ -70,7 +70,7 @@ html {
   }
   .clearfix {
     &:after {
-      content: ".";
+      content: "";
       display: block;
       height: 0;
       clear: both;
@@ -91,6 +91,51 @@ html {
   body {
     width: 750px !important;
     margin: 0 auto !important;
+  }
+}
+
+.c-title {
+  position: relative;
+  width: 100%;
+  height: 145px;
+  box-sizing: border-box;
+  padding-left: 130px;
+  background: #fff url("../imgs/icon-1.png") 50px center no-repeat;
+  background-size: 55px 55px;
+  font-size: 30px;
+  color: #000;
+  padding-top: 58px;
+  a {
+    display: block;
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 156px;
+    height: 51px;
+    line-height: 51px;
+    border: 2px solid #ae5da1;
+    color: #ae5da1;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 24px;
+    z-index: 800;
+    &:hover, &:active, &:visited {
+      text-decoration: none;
+    }
+    &.disable {
+      color: #999;
+      border-color: #999;
+    }
+  }
+  &:after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: #bfbfbf;
+    content: "";
   }
 }
 
@@ -129,7 +174,7 @@ html {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 1px;
+    height: 2px;
     background: #ebebeb;
     content: "";
   }
@@ -226,13 +271,13 @@ html {
   }
   .record-handle {
     background: #fff;
-    height: 145px;
     .handle-item {
       position: relative;
       width: 50%;
       height: 145px;
       box-sizing: border-box;
       padding-left: 130px;
+      border-bottom: 2px solid #ebebeb;
 
       /*&.handle-item-0 {
         background: url("../imgs/icon-1.png") 50px center no-repeat;
@@ -266,60 +311,17 @@ html {
         }
       }
     }
-    .handle-item:nth-child(2n) {
+    .handle-item:nth-child(2n+1) {
       &:after {
         position: absolute;
         top: 27px;
-        left: 0;
+        right: 0;
         width: 1px;
         height: 90px;
         content: "";
         background: #b9b9bb;
       }
     }
-  }
-}
-
-.c-title {
-  position: relative;
-  width: 100%;
-  height: 145px;
-  box-sizing: border-box;
-  padding-left: 130px;
-  background: #fff url("../imgs/icon-1.png") 50px center no-repeat;
-  background-size: 55px 55px;
-  font-size: 30px;
-  color: #000;
-  padding-top: 58px;
-  a {
-    position: absolute;
-    right: 50px;
-    top: 50%;
-    transform: translate(0, -50%);
-    width: 156px;
-    height: 51px;
-    border: 2px solid #ae5da1;
-    color: #ae5da1;
-    border-radius: 5px;
-    text-align: center;
-    line-height: 51px;
-    font-size: 24px;
-    &:hover, &:active, &:visited {
-      text-decoration: none;
-    }
-    &.disable {
-      color: #999;
-      border-color: #999;
-    }
-  }
-  &:after {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: #bfbfbf;
-    content: "";
   }
 }
 
@@ -443,15 +445,21 @@ html {
   height: 100%;
   overflow: hidden;
   .contract-body {
-    position: absolute;
+    position: relative;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     background: #fff;
     box-sizing: border-box;
-    iframe {
-      overflow: hidden;
+    overflow: auto;
+    .item {
+      width: 100%;
+      img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+      }
     }
   }
 }
@@ -531,4 +539,118 @@ html {
   }
 }
 
+/*--还款记录--*/
+.page-repayRecord {
+  .repayRecord-info {
+    position: relative;
+    height: 272px;
+    background: #fff;
+    .info-time {
+      position: absolute;
+      right: 30px;
+      top: 25px;
+      color: #888;
+      font-size: 24px;
+      font-style: normal;
+    }
+    .info-money {
+      padding-top: 70px;
+      text-align: center;
+      h3 {
+        font-size: 32px;
+        color: #000;
+        line-height: 50px;
+      }
+      p {
+        font-size: 70px;
+        color: #ae5da1;
+        margin-top: 10px;
+      }
+    }
+  }
+  .repayRecord-list {
+    background: #fff;
+    .list-title {
+      width: 100%;
+      height: 78px;
+
+      overflow: hidden;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ebebeb;
+      border-top: 1px solid #ebebeb;
+      div {
+        width: 50%;
+        height: 78px;
+        text-align: center;
+        line-height: 78px;
+        color: #777;
+        font-size: 28px;
+      }
+    }
+    .repayRecord-item {
+      position: relative;
+      height: 163px;
+      border-bottom: 2px solid #ebebeb;
+      background: #fff;
+      box-sizing: border-box;
+      padding: 40px 125px 0 110px;
+      .item-money {
+        color: #000;
+        font-size: 32px;
+        i {
+          display: inline-block;
+          width: 118px;
+          height: 28px;
+          text-align: center;
+          line-height: 28px;
+          font-size: 20px;
+          color: #ae5da1;
+          border: 1px solid #ae5da1;
+          font-style: normal;
+          border-radius: 3px;
+          margin-left: 40px;
+        }
+      }
+      .item-date{
+        position: absolute;
+        right: 125px;
+        top: 50px;
+        color: #000;
+        font-size: 22px;
+      }
+      .item-intro{
+        margin-top: 20px;
+        color: #777;
+        font-size: 24px;
+      }
+
+      &:after{
+        position: absolute;
+        left: 54px;
+        top: 50%;
+        margin-top: -7px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #777;
+        content: "";
+      }
+      &:before{
+        position: absolute;
+        left: 60px;
+        top: 0;
+        width: 2px;
+        height: 165px;
+        background: #777;
+        content: "";
+      }
+      &.active:after{
+        background: #ae5da1;
+      }
+      &.active:before{
+        background: #ae5da1;
+      }
+    }
+  }
+}
 

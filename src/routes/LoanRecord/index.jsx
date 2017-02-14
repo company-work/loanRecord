@@ -10,7 +10,7 @@ class LoanRecord extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loanNew: false,
+      loanNew: true,
       recordList: []
     }
   }
@@ -32,8 +32,8 @@ class LoanRecord extends React.Component {
         let data = res.data;
         if (data.succ) {
           let flag = true;
-          if (data.result.state >= 0 && data.result.state < 4) {
-            flag = false;
+          if (data.result.state == 0) {
+            flag = true;
           }
 
           if (data.result["objectResult"].length > 0) {
@@ -44,6 +44,7 @@ class LoanRecord extends React.Component {
               obj.money = item.loanAmt;
               obj.status = item.state;
               obj.statusTxt = item.stateTxt;
+              //obj.subStatusTxt = item.subStateTxt;
               obj.date = item.reqDate;
               obj.agency = item.coopName;
               obj.reqNum = item.reqNo;
@@ -52,9 +53,8 @@ class LoanRecord extends React.Component {
             });
 
 
-
             self.setState({
-              loanNew: true,
+              loanNew: flag,
               recordList: recordData
             })
 

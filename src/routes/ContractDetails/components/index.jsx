@@ -17,21 +17,21 @@ class ContractDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loanStatus: 1,
-      contractTxt: "",
-      contractUrl: "http://app.longyinglicai.com/xieyi.html"
+      contractImgList: []
     }
   }
 
   //初始化数据
   componentDidMount() {
-    return false;
     let self = this;
+    let params = self.props.params;
+    let contractId = params.contractId;
     //初始化银行卡列表
     Loading.show("验证中...");
-    Axios.get(GOKU.interFace.initBankInfo, {
+    Axios.get(GOKU.interFace.initContractDetails, {
         params: {
-          openId: GOKU.openid
+          openId: GOKU.openId,
+          agreementNo: contractId
         }
       })
       .then(res => {
@@ -41,30 +41,33 @@ class ContractDetails extends Component {
         if (data.succ) {
           let result = data.result;
           self.setState({
-            banklist: result
-          })
+            contractImgList: result.objectResult
+          });
         } else {
           Toast.show(data.err_msg);
         }
-
-        console.log(res);
-        console.log("Ajax success");
       })
       .catch(err => {
         Loading.hide();
         Toast.show("服务端繁忙，请稍候...");
         console.log("Ajax error");
       });
-
   }
 
   render() {
     let self = this;
+    let imgListHtm = self.state.contractImgList.map((item, index)=> {
+      return (
+        <div key={index} className="item">
+          <img src={item}/>
+        </div>
+      )
+    })
     return (
       <div className="page-contractDetails">
         {/*合同内容*/}
         <div className="contract-body">
-          <iframe frameBorder="0" width="100%" height="100%" src={self.state.contractUrl}></iframe>
+          {imgListHtm}
         </div>
       </div>
     )
