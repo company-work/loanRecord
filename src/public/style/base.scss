@@ -316,7 +316,7 @@ html {
         position: absolute;
         top: 27px;
         right: 0;
-        width: 1px;
+        width: 2px;
         height: 90px;
         content: "";
         background: #b9b9bb;
@@ -365,7 +365,7 @@ html {
       left: 0;
       bottom: 0;
       width: 100%;
-      height: 1px;
+      height: 2px;
       background: #bfbfbf;
       content: "";
     }
@@ -429,7 +429,7 @@ html {
         left: 50%;
         bottom: 100%;
         height: 220px;
-        width: 1px;
+        width: 2px;
         background: #fff;
         content: "";
       }
@@ -593,10 +593,10 @@ html {
       border-bottom: 2px solid #ebebeb;
       background: #fff;
       box-sizing: border-box;
-      padding: 40px 125px 0 110px;
+      padding: 65px 125px 0 110px;
       .item-money {
         color: #000;
-        font-size: 32px;
+        font-size: 40px;
         i {
           display: inline-block;
           width: 118px;
@@ -611,20 +611,16 @@ html {
           margin-left: 40px;
         }
       }
-      .item-date{
+      .item-date {
         position: absolute;
-        right: 125px;
-        top: 50px;
+        right: 155px;
+        top: 70px;
         color: #000;
-        font-size: 22px;
-      }
-      .item-intro{
-        margin-top: 20px;
-        color: #777;
-        font-size: 24px;
+        font-size: 28px;
+
       }
 
-      &:after{
+      &:after {
         position: absolute;
         left: 54px;
         top: 50%;
@@ -635,7 +631,7 @@ html {
         background: #777;
         content: "";
       }
-      &:before{
+      &:before {
         position: absolute;
         left: 60px;
         top: 0;
@@ -644,12 +640,25 @@ html {
         background: #777;
         content: "";
       }
-      &.active:after{
-        background: #ae5da1;
+
+      &.item-0:before{
+        top: 50% !important;
+        width: 2px;
+        height: 83px;
+        background: #777;
+        content: "";
       }
-      &.active:before{
-        background: #ae5da1;
+
+      &:last-child {
+        &:before {
+          top: 0;
+          width: 2px;
+          height: 83px;
+          background: #777;
+          content: "";
+        }
       }
+
     }
   }
 }

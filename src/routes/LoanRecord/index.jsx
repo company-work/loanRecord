@@ -33,7 +33,7 @@ class LoanRecord extends React.Component {
         if (data.succ) {
           let flag = true;
           if (data.result.state == 0) {
-            flag = true;
+            flag = false;
           }
 
           if (data.result["objectResult"].length > 0) {

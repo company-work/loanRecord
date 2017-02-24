@@ -21,6 +21,7 @@ class RecordDetails extends React.Component {
         repayType: "",
         repayMoneyTxt: "",
         repayMoney: "",
+        loanCoopNum:"",
         interest: ""//利率
       },
       operation: []
@@ -56,6 +57,7 @@ class RecordDetails extends React.Component {
             obj.money = resultData.loanAmt;
             obj.date = resultData.loanDate;
             obj.agency = resultData.coopName;
+            obj.loanCoopNum = resultData.coopNo;
             obj.interest = resultData.loanInterest;
 
             obj.loanTime = resultData.loanLimit;
@@ -103,6 +105,7 @@ class RecordDetails extends React.Component {
     switch (type) {
       case "loanHome":
         let goUrl = GOKU.loanHomeUrl + "/#/loanhome/" + GOKU.openId + "/" + GOKU.clientNo + "/" + loanReqNum;
+        kukie.setCookie("loanCoopNum",self.state.loanInfo.loanCoopNum);
         window.location.href = goUrl;
         break;
       case "contract":
